@@ -1,0 +1,92 @@
+================================================================================
+                     VIRTUAL ASSISTANT - SETUP GUIDE
+================================================================================
+
+This project uses HTML/CSS/JS frontend with PHP/MySQL backend.
+It CANNOT run in the v0 preview - you need a local PHP server.
+
+--------------------------------------------------------------------------------
+QUICK SETUP (XAMPP)
+--------------------------------------------------------------------------------
+
+1. Download and install XAMPP from: https://www.apachefriends.org/
+
+2. Start XAMPP Control Panel and click "Start" for:
+   - Apache
+   - MySQL
+
+3. Copy the entire project folder to:
+   - Windows: C:\xampp\htdocs\virtual-assistant\
+   - Mac: /Applications/XAMPP/htdocs/virtual-assistant/
+
+4. Create the database:
+   - Open http://localhost/phpmyadmin
+   - Create a new database named: virtual_assistant
+   - Import the file: backend/config/schema.sql
+
+5. Update database config if needed:
+   - Edit: backend/config/db.php
+   - Update DB_HOST, DB_USER, DB_PASS, DB_NAME if different
+
+6. Access the app:
+   http://localhost/virtual-assistant/frontend/dashboard.html
+
+--------------------------------------------------------------------------------
+EMAIL CONFIGURATION
+--------------------------------------------------------------------------------
+
+The email feature uses Gmail SMTP. Current settings in backend/config/db.php:
+
+EMAIL_HOST     = smtp.gmail.com
+EMAIL_PORT     = 587
+EMAIL_USERNAME = fakenewsdetectionssystem@gmail.com
+EMAIL_PASSWORD = dwlu abey hiwx bhwa (App Password)
+
+To use your own Gmail:
+1. Enable 2-Factor Authentication on your Google account
+2. Generate an App Password: https://myaccount.google.com/apppasswords
+3. Update EMAIL_USERNAME and EMAIL_PASSWORD in backend/config/db.php
+
+--------------------------------------------------------------------------------
+OPTIONAL: INSTALL PHPMAILER (for better email reliability)
+--------------------------------------------------------------------------------
+
+Run in the backend folder:
+   composer require phpmailer/phpmailer
+
+Or download manually from: https://github.com/PHPMailer/PHPMailer
+
+--------------------------------------------------------------------------------
+FEATURES
+--------------------------------------------------------------------------------
+
+Commands available:
+- "send email"   - Guides you through sending an email step-by-step
+- "create file"  - Creates a file (asks for extension, name, content)
+- "read file"    - Read the contents of a file
+- "edit file"    - Edit an existing file
+- "delete file"  - Delete a file (with confirmation)
+- "search files" - Search for files by name
+- "help"         - Show all commands
+
+Type "cancel" at any time to abort an operation.
+
+--------------------------------------------------------------------------------
+TROUBLESHOOTING
+--------------------------------------------------------------------------------
+
+Error: "Cannot connect to PHP backend"
+- Make sure Apache is running in XAMPP
+- Access the app via http://localhost/... not file://
+
+Error: "Database connection failed"
+- Make sure MySQL is running in XAMPP
+- Check database credentials in backend/config/db.php
+- Make sure the virtual_assistant database exists
+
+Error: "Failed to send email"
+- Check your Gmail App Password is correct
+- Make sure 2FA is enabled on your Google account
+- Check if "Less secure apps" needs to be enabled
+
+================================================================================

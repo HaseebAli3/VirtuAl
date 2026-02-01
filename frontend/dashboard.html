@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - AI Virtual Assistant</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/>
+                    <circle cx="7.5" cy="14.5" r="1.5"/>
+                    <circle cx="16.5" cy="14.5" r="1.5"/>
+                </svg>
+                <span>VirtuAI</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="dashboard.html" class="active">Dashboard</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html">Home</a>
+        <a href="dashboard.html" class="active">Dashboard</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="dashboard">
+        <div class="dashboard-container">
+            <!-- Sidebar -->
+            <aside class="sidebar" id="sidebar">
+                <div class="sidebar-header">
+                    <h3>Chat History</h3>
+                    <button class="new-chat-btn" id="newChatBtn" title="Start New Chat">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        <span>New Chat</span>
+                    </button>
+                </div>
+                <nav class="sidebar-nav">
+                    <div class="chat-history-list" id="chatHistoryList">
+                        <!-- Chat history items will be added here dynamically -->
+                    </div>
+                </nav>
+
+            </aside>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <div class="page-header">
+                    <h1>AI Assistant</h1>
+                    <p>Ask me to create, edit, read, delete, or search files. I can also send emails for you.</p>
+                </div>
+
+                <!-- Chat Interface -->
+                <div class="chat-container">
+<div class="chat-header">
+                        <div class="chat-header-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h2>VirtuAI Assistant</h2>
+                            <p id="chatStatus">Online and ready to help</p>
+                        </div>
+                    </div>
+
+                    <div class="chat-messages" id="chatMessages">
+                        <!-- Messages will be loaded here -->
+                    </div>
+
+                    <div class="chat-input-container">
+                        <div class="quick-commands">
+                            <button class="quick-cmd" data-cmd="create file">Create File</button>
+                            <button class="quick-cmd" data-cmd="send email">Send Email</button>
+                            <button class="quick-cmd" data-cmd="search files">Search Files</button>
+                            <button class="quick-cmd" data-cmd="help">Help</button>
+                        </div>
+<div class="chat-input-wrapper">
+                            <textarea 
+                                class="chat-input" 
+                                id="chatInput" 
+                                placeholder="Type your command here... (e.g., 'create file report.txt')"
+                                rows="1"
+                            ></textarea>
+                            <button class="voice-btn" id="voiceBtn" type="button" title="Voice Command (Click to speak)">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+                                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                                    <line x1="12" y1="19" x2="12" y2="23"></line>
+                                    <line x1="8" y1="23" x2="16" y2="23"></line>
+                                </svg>
+                            </button>
+                            <button class="voice-call-btn" id="voiceCallBtn" type="button" title="Start Voice Call">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                </svg>
+                            </button>
+                            <button class="chat-send-btn" id="sendBtn">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- File Edit Modal -->
+    <div class="modal-overlay" id="fileModal">
+        <div class="modal" style="max-width: 700px;">
+            <div class="modal-header">
+                <h3 id="modalTitle">Edit File</h3>
+                <button class="modal-close" id="modalClose">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p style="margin-bottom: 12px; color: var(--color-gray-500); font-size: 14px;">Edit the file content below and click "Save Changes" to update.</p>
+                <textarea id="modalTextarea" style="width: 100%; height: 350px; padding: 12px; font-family: 'Consolas', 'Monaco', monospace; font-size: 14px; border: 1px solid var(--color-gray-300); border-radius: 8px; resize: vertical; background: var(--color-gray-50); color: var(--color-primary);"></textarea>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="modalCloseBtn">Cancel</button>
+                <button class="btn btn-primary" id="modalSaveBtn">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Voice Call Button - ChatGPT style in input area */
+        .voice-call-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+        .voice-call-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
+        }
+        .voice-call-btn.active {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            animation: pulse-call 1.5s infinite;
+        }
+        @keyframes pulse-call {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+        }
+
+        /* Voice Call Overlay */
+        .voice-call-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            z-index: 9999;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .voice-call-overlay.active {
+            display: flex;
+        }
+        .voice-call-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            position: relative;
+        }
+        .voice-call-avatar svg {
+            color: white;
+        }
+        .voice-call-rings {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+        .voice-call-rings::before,
+        .voice-call-rings::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            border: 2px solid rgba(59, 130, 246, 0.5);
+            opacity: 0;
+        }
+        .voice-call-overlay.listening .voice-call-rings::before,
+        .voice-call-overlay.listening .voice-call-rings::after {
+            animation: ring-pulse 2s infinite;
+        }
+        .voice-call-overlay.speaking .voice-call-rings::before,
+        .voice-call-overlay.speaking .voice-call-rings::after {
+            border-color: rgba(34, 197, 94, 0.5);
+            animation: ring-pulse 1s infinite;
+        }
+        .voice-call-rings::before {
+            width: 150px;
+            height: 150px;
+        }
+        .voice-call-rings::after {
+            width: 180px;
+            height: 180px;
+            animation-delay: 0.5s;
+        }
+        @keyframes ring-pulse {
+            0% { opacity: 0.8; transform: translate(-50%, -50%) scale(0.8); }
+            100% { opacity: 0; transform: translate(-50%, -50%) scale(1.5); }
+        }
+        .voice-call-name {
+            color: white;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .voice-call-status {
+            color: #94a3b8;
+            font-size: 14px;
+            margin-bottom: 40px;
+            min-height: 20px;
+        }
+        .voice-call-status.listening {
+            color: #3b82f6;
+        }
+        .voice-call-status.speaking {
+            color: #22c55e;
+        }
+        .voice-call-transcript {
+            color: #e2e8f0;
+            font-size: 16px;
+            text-align: center;
+            max-width: 300px;
+            min-height: 48px;
+            margin-bottom: 40px;
+            line-height: 1.5;
+        }
+        .voice-call-end-btn {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: #ef4444;
+            border: none;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .voice-call-end-btn:hover {
+            background: #dc2626;
+            transform: scale(1.1);
+        }
+
+        /* Mobile Improvements */
+        @media (max-width: 768px) {
+            .dashboard {
+                padding: 0;
+            }
+            .dashboard-container {
+                flex-direction: column;
+            }
+            .sidebar {
+                display: none;
+            }
+            .main-content {
+                padding: 10px;
+                padding-bottom: env(safe-area-inset-bottom, 10px);
+            }
+            .page-header {
+                padding: 12px 0;
+            }
+            .page-header h1 {
+                font-size: 20px;
+            }
+            .page-header p {
+                font-size: 13px;
+            }
+            .chat-container {
+                border-radius: 12px;
+                height: calc(100dvh - 160px);
+            }
+            .chat-header {
+                padding: 12px;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            .chat-header h2 {
+                font-size: 16px;
+            }
+            .chat-messages {
+                padding: 12px;
+            }
+            .chat-input-container {
+                padding: 10px;
+            }
+            .quick-commands {
+                gap: 6px;
+                padding-bottom: 8px;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            .quick-cmd {
+                font-size: 12px;
+                padding: 6px 10px;
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
+            .chat-input {
+                font-size: 16px; /* Prevents iOS zoom */
+            }
+            .navbar {
+                padding: 8px 12px;
+            }
+            .nav-logo span {
+                font-size: 18px;
+            }
+        }
+
+        /* Smooth scrolling for chat */
+        .chat-messages {
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* New Chat Button Styles */
+        .new-chat-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: var(--color-accent);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+            justify-content: center;
+            margin-top: 12px;
+        }
+        .new-chat-btn:hover {
+            background: var(--color-accent-dark, #2563eb);
+            transform: translateY(-1px);
+        }
+        
+        /* Chat History List */
+        .chat-history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 8px 0;
+        }
+        .chat-history-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: transparent;
+            border: none;
+            width: 100%;
+            text-align: left;
+            color: var(--color-gray-600);
+        }
+        .chat-history-item:hover {
+            background: var(--color-gray-100);
+        }
+        .chat-history-item.active {
+            background: var(--color-gray-200);
+            color: var(--color-primary);
+        }
+        .chat-history-item svg {
+            flex-shrink: 0;
+        }
+        .chat-history-item-content {
+            flex: 1;
+            overflow: hidden;
+        }
+        .chat-history-item-title {
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .chat-history-item-date {
+            font-size: 11px;
+            color: var(--color-gray-400);
+        }
+        .chat-history-item-delete {
+            opacity: 0;
+            padding: 4px;
+            border-radius: 4px;
+            transition: all 0.2s;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--color-gray-500);
+        }
+        .chat-history-item:hover .chat-history-item-delete {
+            opacity: 1;
+        }
+        .chat-history-item-delete:hover {
+            background: var(--color-gray-300);
+            color: var(--color-error);
+        }
+        
+        /* No history message */
+        .no-history {
+            text-align: center;
+            padding: 20px;
+            color: var(--color-gray-400);
+            font-size: 13px;
+        }
+    </style>
+
+<!-- Voice Call Overlay -->
+    <div class="voice-call-overlay" id="voiceCallOverlay">
+        <div class="voice-call-avatar">
+            <div class="voice-call-rings"></div>
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/>
+                <circle cx="7.5" cy="14.5" r="1.5"/>
+                <circle cx="16.5" cy="14.5" r="1.5"/>
+            </svg>
+        </div>
+        <div class="voice-call-name">VirtuAI Assistant</div>
+        <div class="voice-call-status" id="voiceCallStatus">Connecting...</div>
+        <div class="voice-call-transcript" id="voiceCallTranscript"></div>
+        <button class="voice-call-end-btn" id="voiceCallEndBtn" title="End Call">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.68 13.31a16 16 0 0 0 3.41 2.6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7 2 2 0 0 1 1.72 2v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.42 19.42 0 0 1-3.33-2.67m-2.67-3.34a19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91"></path>
+                <line x1="22" y1="2" x2="2" y2="22"></line>
+            </svg>
+        </button>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/assistant.js"></script>
+    <script>
+    // Voice Call System - Hooks into existing assistant system
+    (function() {
+        const voiceCallBtn = document.getElementById('voiceCallBtn');
+        const voiceCallOverlay = document.getElementById('voiceCallOverlay');
+        const voiceCallEndBtn = document.getElementById('voiceCallEndBtn');
+        const voiceCallStatus = document.getElementById('voiceCallStatus');
+        const voiceCallTranscript = document.getElementById('voiceCallTranscript');
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const chatMessages = document.getElementById('chatMessages');
+        const chatStatus = document.getElementById('chatStatus');
+        
+        let isInCall = false;
+        let recognition = null;
+        let synthesis = window.speechSynthesis;
+        let currentUtterance = null;
+        let isListening = false;
+        let isSpeaking = false;
+        let waitingForResponse = false;
+
+        // Check for speech recognition support
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        
+        if (!SpeechRecognition) {
+            voiceCallBtn.style.display = 'none';
+            console.warn('Speech recognition not supported');
+            return;
+        }
+
+        // Initialize speech recognition
+        function initRecognition() {
+            recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = true;
+            recognition.lang = 'en-US';
+
+            recognition.onstart = function() {
+                isListening = true;
+                voiceCallOverlay.classList.add('listening');
+                voiceCallOverlay.classList.remove('speaking');
+                voiceCallStatus.textContent = 'Listening...';
+                voiceCallStatus.className = 'voice-call-status listening';
+            };
+
+            recognition.onresult = function(event) {
+                let transcript = '';
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    transcript += event.results[i][0].transcript;
+                }
+                voiceCallTranscript.textContent = transcript;
+                
+                if (event.results[event.results.length - 1].isFinal) {
+                    processVoiceInput(transcript);
+                }
+            };
+
+            recognition.onerror = function(event) {
+                console.error('Speech recognition error:', event.error);
+                if (event.error === 'no-speech' && isInCall && !waitingForResponse) {
+                    setTimeout(startListening, 500);
+                }
+            };
+
+            recognition.onend = function() {
+                isListening = false;
+                if (isInCall && !isSpeaking && !waitingForResponse) {
+                    setTimeout(startListening, 300);
+                }
+            };
+        }
+
+        // Start listening
+        function startListening() {
+            if (!isInCall || isSpeaking || waitingForResponse) return;
+            
+            try {
+                recognition.start();
+            } catch (e) {
+                console.log('Recognition already started');
+            }
+        }
+
+        // Stop listening
+        function stopListening() {
+            isListening = false;
+            try {
+                recognition.stop();
+            } catch (e) {}
+        }
+
+        // Speak text aloud
+        function speak(text, callback) {
+            if (!isInCall) {
+                if (callback) callback();
+                return;
+            }
+            
+            synthesis.cancel();
+            isSpeaking = true;
+            stopListening();
+            
+            voiceCallOverlay.classList.remove('listening');
+            voiceCallOverlay.classList.add('speaking');
+            voiceCallStatus.textContent = 'Speaking...';
+            voiceCallStatus.className = 'voice-call-status speaking';
+            voiceCallTranscript.textContent = text;
+
+            currentUtterance = new SpeechSynthesisUtterance(text);
+            currentUtterance.rate = 1;
+            currentUtterance.pitch = 1;
+            
+            // Get a good voice
+            const voices = synthesis.getVoices();
+            const preferredVoice = voices.find(v => 
+                v.name.includes('Google') || 
+                v.name.includes('Samantha') || 
+                v.name.includes('Microsoft') ||
+                v.lang.startsWith('en')
+            );
+            if (preferredVoice) {
+                currentUtterance.voice = preferredVoice;
+            }
+
+            currentUtterance.onend = function() {
+                isSpeaking = false;
+                waitingForResponse = false;
+                if (isInCall) {
+                    setTimeout(startListening, 500);
+                }
+                if (callback) callback();
+            };
+
+            currentUtterance.onerror = function() {
+                isSpeaking = false;
+                waitingForResponse = false;
+                if (isInCall) {
+                    setTimeout(startListening, 500);
+                }
+                if (callback) callback();
+            };
+
+            synthesis.speak(currentUtterance);
+        }
+
+        // Process voice input - send to existing system
+        function processVoiceInput(text) {
+            if (!text.trim()) return;
+            
+            stopListening();
+            waitingForResponse = true;
+            
+            voiceCallStatus.textContent = 'Processing...';
+            voiceCallStatus.className = 'voice-call-status';
+            voiceCallOverlay.classList.remove('listening', 'speaking');
+            
+            // Put text in input and trigger send (uses existing system)
+            chatInput.value = text;
+            
+            // Trigger input event for auto-resize
+            chatInput.dispatchEvent(new Event('input', { bubbles: true }));
+            
+            // Click send button to use existing assistant logic
+            sendBtn.click();
+            
+            // Watch for new assistant message and read it aloud
+            observeForResponse();
+        }
+
+        // Watch for system response and read it aloud
+        function observeForResponse() {
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    mutation.addedNodes.forEach(function(node) {
+                        if (node.nodeType === 1 && node.classList.contains('chat-message') && node.classList.contains('assistant')) {
+                            // Found new assistant message
+                            const bubble = node.querySelector('.message-bubble');
+                            if (bubble) {
+                                const responseText = bubble.textContent || bubble.innerText;
+                                if (responseText && isInCall) {
+                                    observer.disconnect();
+                                    // Small delay to let UI update
+                                    setTimeout(() => {
+                                        speak(responseText);
+                                    }, 200);
+                                }
+                            }
+                        }
+                    });
+                });
+            });
+
+            observer.observe(chatMessages, {
+                childList: true,
+                subtree: true
+            });
+
+            // Timeout fallback - stop waiting after 30 seconds
+            setTimeout(() => {
+                observer.disconnect();
+                if (waitingForResponse && isInCall) {
+                    waitingForResponse = false;
+                    startListening();
+                }
+            }, 30000);
+        }
+
+        // Start voice call
+        function startVoiceCall() {
+            isInCall = true;
+            waitingForResponse = false;
+            initRecognition();
+            
+            voiceCallBtn.classList.add('active');
+            voiceCallOverlay.classList.add('active');
+            chatStatus.textContent = 'In voice call...';
+            
+            // Start greeting then listen
+            voiceCallStatus.textContent = 'Connected';
+            voiceCallStatus.className = 'voice-call-status';
+            
+            setTimeout(() => {
+                speak("Hello! I'm ready to help. What would you like to do?", function() {
+                    // After greeting, start listening
+                });
+            }, 300);
+        }
+
+        // End voice call
+        function endVoiceCall() {
+            isInCall = false;
+            isSpeaking = false;
+            isListening = false;
+            waitingForResponse = false;
+            
+            synthesis.cancel();
+            stopListening();
+            
+            voiceCallBtn.classList.remove('active');
+            voiceCallOverlay.classList.remove('active', 'listening', 'speaking');
+            voiceCallStatus.textContent = 'Call ended';
+            voiceCallTranscript.textContent = '';
+            chatStatus.textContent = 'Online and ready to help';
+        }
+
+        // Event listeners
+        voiceCallBtn.addEventListener('click', function() {
+            if (isInCall) {
+                endVoiceCall();
+            } else {
+                startVoiceCall();
+            }
+        });
+
+        voiceCallEndBtn.addEventListener('click', endVoiceCall);
+
+        // Load voices
+        if (synthesis.onvoiceschanged !== undefined) {
+            synthesis.onvoiceschanged = function() {
+                synthesis.getVoices();
+            };
+        }
+        
+        // Expose speak function globally so system can trigger it if needed
+        window.voiceCallSpeak = function(text) {
+            if (isInCall) {
+                speak(text);
+            }
+        };
+        
+        // Check if in call
+        window.isVoiceCallActive = function() {
+            return isInCall;
+        };
+    })();
+    </script>
+</body>
+</html>
